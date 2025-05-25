@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lectura de RSS con AJAX</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  h2 { color: #333; }
+  .item { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
+  .title { font-weight: bold; font-size: 1.2em; }
+  .pubDate { font-size: 0.9em; color: #555; }
+  .description { margin-top: 5px; }
+</style>
+</head>
+<body>
+
+<h1>Noticias RSS BBC Mundo</h1>
+<div id="rss-content">Cargando noticias...</div>
+
+<script>
+function loadRSS() {
+  const xhr = new XMLHttpRequest();
+  const rssUrl = "https://feeds.bbci.co.uk/news/world/rss.xml";
+
+  xhr.open("GET", rssUrl, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        const xml = xhr.responseXML;
+        if (!xml) {
+          document.getElementById("rss-content").innerHTML = "No se pudo cargar XML.";
+          return;
+        }
+        
+        const items = xml.querySelectorAll("item");
+        let html = "";
+
+        items.forEach(item => {
+          const title = item.querySelector("title").textContent;
+          const pubDate = item.querySelector("pubDate").textContent;
+          const description = item.querySelector("description").textContent;
+
+          html += `
+            <div class="item">
+              <div class="title">${title}</div>
+              <div class="pubDate">${new Date(pubDate).toLocaleString()}</div>
+              <div class="description">${description}</div>
+            </div>
+          `;
+        });
+
+        document.getElementById("rss-content").innerHTML = html;
+      } else {
+        document.getElementById("rss-content").innerHTML = "Error al cargar RSS: " + xhr.status;
+      }
+    }
+  };
+  xhr.send();
+}
+
+loadRSS();
+</script>
+
+</body>
+</html>

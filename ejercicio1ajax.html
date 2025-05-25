@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CD Catalog Viewer</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+    }
+    .cd-entry {
+      border: 1px solid black;
+      margin: 10px 0;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>The XMLHttpRequest Object</h2>
+
+<button type="button" onclick="loadDoc()">Get my CD collection</button>
+<br><br>
+
+<h3>CD Collection in Table:</h3>
+<table id="demo"></table>
+
+<h3>CD Collection in Divs:</h3>
+<div id="cdDivContainer"></div>
+
+<script>
+function loadDoc() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    myFunction(this);
+  }
+  xhttp.open("GET", "cd_catalog.xml", true);
+  xhttp.send();
+}
+
+function myFunction(xml) {
+  const xmlDoc = xml.responseXML;
+  const cds = xmlDoc.getElementsByTagName("CD");
+
+  // Fill table
+  let table = "<tr><th>Artist</th><th>Title</th><th>Country</th><th>Company</th><th>Price</th><th>Year</th></tr>";
+  for (let i = 0; i < cds.length; i++) {
+    table += "<tr>" +
+      "<td>" + cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + "</td>" +
+      "<td>" + cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue + "</td>" +
+      "<td>" + cds[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue + "</td>" +
+      "<td>" + cds[i].getElementsByTagName("COMPANY")[0].childNodes[0].nodeValue + "</td>" +
+      "<td>" + cds[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue + "</td>" +
+      "<td>" + cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue + "</td>" +
+      "</tr>";
+  }
+  document.getElementById("demo").innerHTML = table;
+
+  // Fill divs
+  let divContent = "";
+  for (let i = 0; i < cds.length; i++) {
+    divContent += "<div class='cd-entry'>" +
+      "<strong>Artist:</strong> " + cds[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue + "<br>" +
+      "<strong>Title:</strong> " + cds[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue + "<br>" +
+      "<strong>Country:</strong> " + cds[i].getElementsByTagName("COUNTRY")[0].childNodes[0].nodeValue + "<br>" +
+      "<strong>Company:</strong> " + cds[i].getElementsByTagName("COMPANY")[0].childNodes[0].nodeValue + "<br>" +
+      "<strong>Price:</strong> " + cds[i].getElementsByTagName("PRICE")[0].childNodes[0].nodeValue + "<br>" +
+      "<strong>Year:</strong> " + cds[i].getElementsByTagName("YEAR")[0].childNodes[0].nodeValue +
+      "</div>";
+  }
+  document.getElementById("cdDivContainer").innerHTML = divContent;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+import xml.etree.ElementTree as ET
+
+# Suponemos que el XML está en un archivo llamado "huelva.xml"
+# O puedes ponerlo en un string y usar ET.fromstring(xml_string)
+archivo_xml = "huelva.xml"
+
+def mostrar_info_meteorologica(nombre_localidad):
+    tree = ET.parse(archivo_xml)
+    root = tree.getroot()
+
+    # Buscamos el nodo con el nombre de la localidad
+    nombre = root.find('nombre').text
+    if nombre != nombre_localidad:
+        print(f"No se encontró información para la localidad {nombre_localidad}")
+        return
+
+    # Para simplificar mostramos la predicción del primer día
+    dia = root.find('prediccion/dia')
+
+    fecha = dia.attrib['fecha']
+    print(f"Predicción meteorológica para {nombre_localidad} - Fecha: {fecha}")
+
+    # Temperatura máxima y mínima
+    temperatura = dia.find('temperatura')
+    temp_max = temperatura.find('maxima').text
+    temp_min = temperatura.find('minima').text
+    print(f"Temperatura máxima: {temp_max} °C")
+    print(f"Temperatura mínima: {temp_min} °C")
+
+    # Estado del cielo por tramo horario
+    print("\nEstado del cielo por tramo horario:")
+    for estado in dia.findall('estado_cielo'):
+        periodo = estado.attrib.get('periodo', 'Desconocido')
+        descripcion = estado.attrib.get('descripcion', 'Sin datos')
+        if descripcion.strip() == "":
+            descripcion = "Sin datos"
+        print(f"  {periodo}: {descripcion}")
+
+    # Dirección y velocidad del viento por tramo horario
+    print("\nViento por tramo horario:")
+    for viento in dia.findall('viento'):
+        periodo = viento.attrib.get('periodo', 'Desconocido')
+        direccion = viento.find('direccion').text
+        velocidad = viento.find('velocidad').text
+        if direccion is None or direccion.strip() == "":
+            direccion = "Sin datos"
+        if velocidad is None or velocidad.strip() == "":
+            velocidad = "Sin datos"
+        print(f"  {periodo}: Dirección {direccion}, Velocidad {velocidad} km/h")
+
+    # Humedad relativa máxima y mínima
+    humedad = dia.find('humedad_relativa')
+    humedad_max = humedad.find('maxima').text
+    humedad_min = humedad.find('minima').text
+    print(f"\nHumedad relativa máxima: {humedad_max}%")
+    print(f"Humedad relativa mínima: {humedad_min}%")
+
+    # Humedad relativa por horas si disponible
+    print("Humedad relativa por horas:")
+    for dato in humedad.findall('dato'):
+        hora = dato.attrib.get('hora', 'Desconocida')
+        valor = dato.text
+        print(f"  Hora {hora}: {valor}%")
+
+if __name__ == "__main__":
+    mostrar_info_meteorologica("Huelva")

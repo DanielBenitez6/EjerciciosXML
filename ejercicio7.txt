@@ -1,0 +1,7 @@
+a. In XML, comments look like this: <!-- declarations for <head> & <body> -->
+
+c. No, it cannot be repeated in the same element since an attribute
+name MUST NOT appear more than once in the same start-tag or empty-element tag.
+
+c. In "3 Logical Structures" where it saysThe Name in an element's
+end-tag MUST match the element type in the start-tag.

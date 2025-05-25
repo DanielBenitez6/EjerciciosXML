@@ -1,0 +1,19 @@
+FILE: ex3-err.txt
+
+1. ERROR: The <president> and <secretary> elements are declared outside the <company> element.
+   CORRECTION: Move them inside each respective <company> block.
+
+2. ERROR: Tags are incorrectly nested. Example:
+   <president>Bill Gates <extension>09-9990011</president></extension>
+   CORRECTION: You cannot start <extension> inside <president> and close it outside.
+   SOLUTION: Wrap the president’s name in a <name> tag, and properly close both <name> and <extension> tags inside <president>.
+
+3. ERROR: The same nesting issue happens with <secretary> elements.
+   CORRECTION: Use <name> inside <secretary> and close <extension> properly.
+
+4. ERROR: Structurally, having <president> and <secretary> outside <company> breaks the hierarchy.
+   CORRECTION: Include all related info (exchange, president, secretary) within the same <company>.
+
+5. SUGGESTION: Use consistent indentation and line breaks for better readability.
+
+6. SUGGESTION: Use self-descriptive elements for clarity, e.g., <name> within <president> and <secretary>.

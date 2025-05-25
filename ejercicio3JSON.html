@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Mostrar longitud y tabla desde JSON</h2>
+
+<p id="length"></p>
+
+<table id="carTable" border="1">
+  <tr>
+    <th>Índice</th>
+    <th>Marca</th>
+  </tr>
+</table>
+
+<script>
+const xmlhttp = new XMLHttpRequest();
+xmlhttp.onload = function() {
+  // Parseamos la respuesta JSON
+  const cars = JSON.parse(this.responseText);
+
+  // Mostrar la longitud del array
+  document.getElementById("length").innerHTML = "Longitud del array: " + cars.length;
+
+  // Referencia a la tabla
+  const table = document.getElementById("carTable");
+
+  // Añadimos cada elemento como una fila en la tabla
+  for(let i = 0; i < cars.length; i++) {
+    const row = table.insertRow();
+    const cellIndex = row.insertCell(0);
+    const cellName = row.insertCell(1);
+    cellIndex.innerHTML = i;
+    cellName.innerHTML = cars[i];
+  }
+}
+xmlhttp.open("GET", "json_demo_array.txt");
+xmlhttp.send();
+</script>
+
+</body>
+</html>

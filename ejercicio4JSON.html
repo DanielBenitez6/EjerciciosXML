@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Datos desde JSON con XMLHttpRequest</h2>
+
+<p id="edad"></p>
+<p id="primerAnimal"></p>
+<p id="primerNombre"></p>
+<p id="numMascotas"></p>
+<p id="nombresMascotas"></p>
+<p id="todosDatos"></p>
+
+<table border="1" id="tablaDatos">
+  <tr>
+    <th>Propiedad</th>
+    <th>Valor</th>
+  </tr>
+</table>
+
+<script>
+const xmlhttp = new XMLHttpRequest();
+xmlhttp.onload = function() {
+  const myObj = JSON.parse(this.responseText);
+
+  // Mostrar edad
+  document.getElementById("edad").innerHTML = "Edad: " + myObj.age;
+
+  // Mostrar primer animal y nombre de la primera mascota
+  document.getElementById("primerAnimal").innerHTML = "Primer animal: " + myObj.pets[0].animal;
+  document.getElementById("primerNombre").innerHTML = "Nombre primer mascota: " + myObj.pets[0].name;
+
+  // Número de mascotas
+  document.getElementById("numMascotas").innerHTML = "Número de mascotas: " + myObj.pets.length;
+
+  // Nombres de todas las mascotas
+  let nombres = "";
+  for(let i=0; i < myObj.pets.length; i++) {
+    nombres += myObj.pets[i].name + "<br>";
+  }
+  document.getElementById("nombresMascotas").innerHTML = "Nombres de todas las mascotas:<br>" + nombres;
+
+  // Mostrar todos los datos en un párrafo
+  let todos = "Nombre: " + myObj.name + "<br>" +
+              "Edad: " + myObj.age + "<br>" +
+              "Mascotas:<br>";
+
+  for(let pet of myObj.pets) {
+    todos += "- " + pet.animal + ": " + pet.name + "<br>";
+  }
+  document.getElementById("todosDatos").innerHTML = todos;
+
+  // Mostrar datos en tabla
+  const tabla = document.getElementById("tablaDatos");
+
+  // Nombre
+  let fila1 = tabla.insertRow();
+  fila1.insertCell(0).innerHTML = "Nombre";
+  fila1.insertCell(1).innerHTML = myObj.name;
+
+  // Edad
+  let fila2 = tabla.insertRow();
+  fila2.insertCell(0).innerHTML = "Edad";
+  fila2.insertCell(1).innerHTML = myObj.age;
+
+  // Mascotas (cada mascota como fila)
+  for(let i=0; i < myObj.pets.length; i++) {
+    let fila = tabla.insertRow();
+    fila.insertCell(0).innerHTML = "Mascota " + (i+1);
+    fila.insertCell(1).innerHTML = myObj.pets[i].animal + " - " + myObj.pets[i].name;
+  }
+};
+xmlhttp.open("GET", "json_demo.txt"); // Archivo JSON debe tener el objeto JSON que diste
+xmlhttp.send();
+</script>
+
+</body>
+</html>

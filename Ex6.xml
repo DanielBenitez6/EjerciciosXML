@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<letter>
+  <sender>
+    <name>John Smith</name>
+    <address>
+      <street>123 Main Street</street>
+      <city>New York</city>
+      <country>USA</country>
+    </address>
+    <email>john.smith@example.com</email>
+  </sender>
+
+  <receiver>
+    <name>Maria Gonzalez</name>
+    <address>
+      <street>456 Elm Avenue</street>
+      <city>Madrid</city>
+      <country>Spain</country>
+    </address>
+    <email>maria.gonzalez@example.es</email>
+  </receiver>
+
+  <date>2025-05-25</date>
+
+  <body>
+    Dear Maria,
+
+    I hope this letter finds you well. I wanted to thank you for your hospitality during my recent visit to Spain. It was truly a pleasure to catch up and share stories.
+
+    Let's keep in touch and hopefully see each other again soon.
+
+    Best regards,
+  </body>
+
+  <signature>John</signature>
+</letter>

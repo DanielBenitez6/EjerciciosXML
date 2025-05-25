@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>XML Syntax Examples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f9fc;
+      margin: 40px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .example {
+      margin-bottom: 30px;
+      padding: 15px;
+      background-color: #eef;
+      border-left: 6px solid #336699;
+    }
+
+    pre {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-x: auto;
+      font-family: "Courier New", Courier, monospace;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>XML Syntax Examples</h1>
+
+  <div class="example">
+    <h2>1. Element named <code>test</code> with content</h2>
+    <pre>
+&lt;test&gt;This is our first element!&lt;/test&gt;
+    </pre>
+  </div>
+
+  <div class="example">
+    <h2>2. Hierarchy of <code>book</code> element with subelements</h2>
+    <pre>
+&lt;book&gt;
+    &lt;chapters&gt;
+        &lt;!-- chapter elements could go here --&gt;
+    &lt;/chapters&gt;
+    &lt;author&gt;
+        &lt;name&gt;John Doe&lt;/name&gt;
+        &lt;address&gt;123 Fiction Street, Novel City&lt;/address&gt;
+    &lt;/author&gt;
+&lt;/book&gt;
+    </pre>
+  </div>
+
+  <div class="example">
+    <h2>3. Element <code>entry</code> with two attributes</h2>
+    <pre>
+&lt;entry no="24" date="27.10.2004" /&gt;
+    </pre>
+
+    <p>Or with nested content:</p>
+    <pre>
+&lt;entry no="24" date="27.10.2004"&gt;
+    &lt;!-- content goes here --&gt;
+&lt;/entry&gt;
+    </pre>
+  </div>
+
+</body>
+</html>

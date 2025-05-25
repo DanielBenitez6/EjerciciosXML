@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>NASA APOD API - Datos</h2>
+
+<p><strong>Explicación:</strong> <span id="explanation"></span></p>
+<p><strong>Fecha:</strong> <span id="date"></span></p>
+<p><strong>URL:</strong> <span id="url"></span></p>
+<img id="imagen" src="" alt="Imagen NASA APOD" width="500">
+
+<script>
+  // URL de la API de NASA APOD con demo key
+  const apiUrl = "https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY";
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      // Mostrar explicación
+      document.getElementById("explanation").textContent = data.explanation;
+
+      // Mostrar fecha
+      document.getElementById("date").textContent = data.date;
+
+      // Mostrar URL (con enlace)
+      const urlElem = document.getElementById("url");
+      urlElem.innerHTML = `<a href="${data.url}" target="_blank">${data.url}</a>`;
+
+      // Mostrar imagen (url puede ser de video, entonces se podría manejar, pero asumimos imagen)
+      const img = document.getElementById("imagen");
+      img.src = data.url;
+    })
+    .catch(error => {
+      console.error("Error al obtener datos de la API:", error);
+    });
+</script>
+
+</body>
+</html>
